@@ -1,0 +1,34 @@
+<div class="block left">
+    <% if(totalNamed.length!==0) { %>
+    <h2><%=totalNamed[0].name %></h2>
+    <ul class="list-group">
+        <li class="list-group-item"><%=totalNamed[0].number %> people were named <%=totalNamed[0].name %> from year 1880 - 2015</li>
+        <li class="list-group-item">This name was popular in <%=popularYear[0].year %> with <%=popularYear[0].number %> people named <%=totalNamed[0].name %></li>
+        <li class="list-group-item">See <a id="popularToday">popular names of today</a></li>
+        <li class="list-group-item">See <a id="popularAllTime">popular name of all time</a></li>
+    </ul>
+    <% }else{ %>
+    <p>No such name was found :(</p>
+    <% } %>
+</div>
+
+<script>
+    $('#popularToday').click(function () {
+        $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+        $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+        $.get('/today', function(result){
+            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+            $('#result').html(result);
+            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+        });
+    });
+    $('#popularAllTime').click(function () {
+        $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+        $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+        $.get('/allTime', function(result){
+            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+            $('#result').html(result);
+            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+        });
+    });
+</script>

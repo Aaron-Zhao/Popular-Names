@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title><%= title %></title>
+    <link rel='stylesheet' href='/stylesheets/style.css' />
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+  </head>
+  <body>
+    <div class="center">
+      <div class="block">
+        <h1><%= title %></h1>
+        <div class="left">
+          <span id="nameLabel">Search your name: </span><br>
+          <input id="name" type="text" placeholder="First Name" size="40">
+          <button id="search" class="btn btn-primary">search</button>
+          <br><br>
+        </div>
+      </div>
+    </div>
+    <div id="loader2" class="cs-loader">
+      <div class="cs-loader-inner">
+        <label>	●</label>
+        <label>	●</label>
+        <label>	●</label>
+        <label>	●</label>
+        <label>	●</label>
+        <label>	●</label>
+      </div>
+    </div>
+
+    <div id="result" class="center">
+      <div class="block left">
+        <h2>name holder</h2>
+        <ul class="list-group">
+          <li class="list-group-item">_x people were named _name from 1880-2015</li>
+          <li class="list-group-item">This name was popular in _y with _x people named _name</li>
+          <li class="list-group-item">See <a id="popularToday">popular names of today</a></li>
+          <li class="list-group-item">See <a id="popularAllTime">popular name of all time</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+    <script>
+      $('#search').click(function () {
+        if($('#name').val()===null||$('#name').val()===''){
+          $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+        }else{
+          $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+          $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+          $.get('/search/'+$('#name').val(), function(result){
+            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+            $('#result').html(result);
+            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+          });
+        }
+      });
+
+      $('#name').keypress(function(e){
+        if(e.keyCode==13) {
+          $('#search').click();
+          return false;
+        }
+      });
+
+    </script>
+  </body>
+</html>

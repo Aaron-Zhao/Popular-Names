@@ -1,0 +1,8 @@
+<div class="block left">
+    <h2>Popular Names of All Time</h2>
+    <ul class="list-group">
+        <% for(var name of names) {%>
+        <li class="list-group-item"><b><%=name.name %></b>  (<%=name.number %> people)</li>
+        <%} %>
+    </ul>
+</div>
