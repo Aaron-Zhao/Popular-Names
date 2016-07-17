@@ -149,17 +149,10 @@ function getPopularYearLocal(name, sort, callback) {
   for(var nameObj of namesObj){
     if(nameObj.name===name){
       var n = Object.assign({}, nameObj);
-      if(r.length>0){
-        if(r[0].number<n.number){
-          r.unshift(n);
-        }else{
-          r.push(n);
-        }
-      }else{
-        r.push(n);
-      }
+      r.push(n);
     }
   }
+  r.sort((a,b)=> {return (a.number > b.number) ? -1 : ((b.number > a.number) ? 1 : 0)});
   r[0].number = formatNum(r[0].number);
   callback([r[0]]);
 }
@@ -169,17 +162,10 @@ function getTodayLocal(callback){
   for(var nameObj of namesObj){
     if(nameObj.year===2015 && nameObj.number>=10000) {
       var n = Object.assign({}, nameObj);
-      if (r.length > 0) {
-        if (r[0].number < n.number) {
-          r.unshift(n);
-        } else {
-          r.push(n);
-        }
-      } else {
-        r.push(n);
-      }
+      r.push(n);
     }
   }
+  r.sort((a,b)=> {return (a.number > b.number) ? -1 : ((b.number > a.number) ? 1 : 0)});
   for(var ro of r) { ro.number = formatNum(ro.number);}
   callback(r);
 }
@@ -189,17 +175,10 @@ function getAllTimeLocal(callback){
   for(name of uniqueNamesObj){
     if(name.number>=1000000){
       var n = Object.assign({}, name);
-      if (r.length > 0) {
-        if (r[0].number < n.number) {
-          r.unshift(n);
-        } else {
-          r.push(n);
-        }
-      } else {
-        r.push(n);
-      }
+      r.push(n);
     }
   }
+  r.sort((a,b)=> {return (a.number > b.number) ? -1 : ((b.number > a.number) ? 1 : 0)});
   for(var ro of r) { ro.number = formatNum(ro.number);}
   callback(r);
 }
