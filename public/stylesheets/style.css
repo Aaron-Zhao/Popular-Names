@@ -3,6 +3,26 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
+/******************************
+ Mobile Styling
+******************************/
+/* Landscape phone to portrait tablet */
+@media (max-width: 767px) {
+  .cs-loader-inner {
+    width: 80% !important;
+  }
+}
+
+/* Portrait phone */
+@media (max-width: 480px) {
+  h1{
+    font-size: 26px !important;
+  }
+  .cs-loader-inner {
+    width: 100% !important;
+  }
+}
+
 a {
   cursor: pointer;
 }
