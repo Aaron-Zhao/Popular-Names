@@ -3,27 +3,8 @@ body {
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
-table, th, td {
-  border: 1px solid black;
-}
-
 a {
   cursor: pointer;
-}
-
-th {
-  background-color: #d3d3d3;
-}
-
-.page {
-  color: #47b5e1;
-  cursor: pointer;
-}
-
-.current-page {
-  color: #000000;
-  cursor: default;
-  text-shadow:0 0 10px rgba(0,0,0,0.9);
 }
 
 .center {
@@ -43,18 +24,6 @@ th {
   opacity: 0.0;
 }
 
-.visible {
-  visibility: visible;
-  opacity: 1;
-  transition: opacity 2s linear;
-}
-
-.hidden {
-  visibility: hidden;
-  opacity: 0;
-  transition: visibility 0s 2s, opacity 2s linear;
-}
-
 #name {
   margin-top: 5px;
   margin-bottom: 5px;
@@ -66,7 +35,6 @@ th {
   margin-top: 5px;
   margin-bottom: 5px;
 }
-
 
 /*loader 2*/
 .cs-loader {
