@@ -2,6 +2,8 @@ var express = require('express');
 var fs = require('fs');
 var mongoClient = require('mongodb').MongoClient;
 var router = express.Router();
+var uniqueNamesObj = JSON.parse(fs.readFileSync('./jnames/unique_names.json', 'utf8'));
+var namesObj = JSON.parse(fs.readFileSync('./jnames/names.json', 'utf8'));
 
 function readNames(callback) {
   var names = [];
@@ -58,6 +60,8 @@ function namesDBDump() {
         readNames((names, uniqueNames)=> {
           console.log('end reading names..');
           console.log('start writing names to db..');
+          writeNameFiles('names.json', JSON.stringify(names));
+          writeNameFiles('unique_names.json', JSON.stringify(uniqueNames));
           db.collection('names').insertMany(names, (err, res)=> {
             console.log('end writing names to db.names..');
             db.collection('unique.names').insertMany(uniqueNames, (err, res)=> {
@@ -69,6 +73,14 @@ function namesDBDump() {
         });
       });
     });
+  });
+}
+
+function writeNameFiles(fileName, data){
+  fs.writeFile("./jnames/"+fileName, data, function(err) {
+    if(err) {
+      return console.log(err);
+    }
   });
 }
 
@@ -116,6 +128,82 @@ function formatNum(num){
   return number;
 }
 
+function getNamesLocal(type, selection, sort, callback) {
+  if(type==='names'){
+
+  }else{
+    for(var name of uniqueNamesObj){
+      if(name.name===selection.name){
+        var n = Object.assign({}, name); //shallow copy
+        n.number = formatNum(n.number);
+        callback([n]);
+        return;
+      }
+    }
+  }
+  callback([]);
+}
+
+function getPopularYearLocal(name, sort, callback) {
+  var namesObjLocal = JSON.parse(JSON.stringify(namesObj));
+  var r = [];
+  for(var nameObj of namesObjLocal){
+    if(nameObj.name===name){
+      if(r.length>0){
+        if(r[0].number<nameObj.number){
+          r.unshift(nameObj);
+        }else{
+          r.push(nameObj);
+        }
+      }else{
+        r.push(nameObj);
+      }
+    }
+  }
+  r[0].number = formatNum(r[0].number);
+  callback([r[0]]);
+}
+
+function getTodayLocal(callback){
+  var namesObjLocal = JSON.parse(JSON.stringify(namesObj));
+  var r = [];
+  for(var nameObj of namesObjLocal){
+    if(nameObj.year===2015 && nameObj.number>=10000) {
+      if (r.length > 0) {
+        if (r[0].number < nameObj.number) {
+          r.unshift(nameObj);
+        } else {
+          r.push(nameObj);
+        }
+      } else {
+        r.push(nameObj);
+      }
+    }
+  }
+  for(var n of r) { n.number = formatNum(n.number);}
+  callback(r);
+}
+
+function getAllTimeLocal(callback){
+  var uniqueNamesObjLocal = JSON.parse(JSON.stringify(uniqueNamesObj));
+  var r = [];
+  for(name of uniqueNamesObjLocal){
+    if(name.number>=1000000){
+      if (r.length > 0) {
+        if (r[0].number < name.number) {
+          r.unshift(name);
+        } else {
+          r.push(name);
+        }
+      } else {
+        r.push(name);
+      }
+    }
+  }
+  for(var n of r) { n.number = formatNum(n.number);}
+  callback(r);
+}
+
 /* GET home page. */
 router.get('/', function(req, res, next) {
   // namesDBDump();
@@ -126,9 +214,9 @@ router.get('/search/:name', function(req, res, next) {
   var name = req.params.name;
   name = name.charAt(0).toUpperCase() + name.substr(1);
   console.log('search name: '+ name);
-  getNames('unique.names', {name: name}, {number: -1}, (totalNamed)=> {
+  getNamesLocal('unique.names', {name: name}, {number: -1}, (totalNamed)=> {
     if(totalNamed.length!==0) {
-      getPopularYear(name, {number: -1}, (popularYear)=> {
+      getPopularYearLocal(name, {number: -1}, (popularYear)=> {
         res.render('result', {title: 'Popular Names', totalNamed: totalNamed, popularYear: popularYear});
       });
     }else{
@@ -138,15 +226,21 @@ router.get('/search/:name', function(req, res, next) {
 });
 
 router.get('/today', function(req, res, next) {
-  getNames('names', {$and: [{year: 2015}, {number: {$gte: 10000}}]}, {number: -1}, (names)=> {
+  getTodayLocal((names)=> {
     res.render('today', { title: 'Popular Names', names: names });
   });
+  // getNames('names', {$and: [{year: 2015}, {number: {$gte: 10000}}]}, {number: -1}, (names)=> {
+  //   res.render('today', { title: 'Popular Names', names: names });
+  // });
 });
 
 router.get('/allTime', function(req, res, next) {
-  getNames('unique.names', {number: {$gte: 1000000}}, {number: -1}, (names)=> {
+  getAllTimeLocal((names)=> {
     res.render('allTime', { title: 'Popular Names', names: names });
   });
+  // getNames('unique.names', {number: {$gte: 1000000}}, {number: -1}, (names)=> {
+  //   res.render('allTime', { title: 'Popular Names', names: names });
+  // });
 });
 
 module.exports = router;

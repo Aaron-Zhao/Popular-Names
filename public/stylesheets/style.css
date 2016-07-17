@@ -39,7 +39,20 @@ th {
 }
 
 #result {
+  /*visibility: hidden;*/
+  opacity: 0.0;
+}
+
+.visible {
+  visibility: visible;
+  opacity: 1;
+  transition: opacity 2s linear;
+}
+
+.hidden {
   visibility: hidden;
+  opacity: 0;
+  transition: visibility 0s 2s, opacity 2s linear;
 }
 
 #name {
@@ -57,7 +70,7 @@ th {
 
 /*loader 2*/
 .cs-loader {
-  visibility: hidden;
+  opacity: 0.0;
 }
 
 .cs-loader-inner {

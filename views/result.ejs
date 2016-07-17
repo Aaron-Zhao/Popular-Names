@@ -14,21 +14,19 @@
 
 <script>
     $('#popularToday').click(function () {
-        $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
-        $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+        $('#loader2').animate({opacity: 1.0}, "fast");
+        $('#result').animate({opacity: 0.0}, "fast");
         $.get('/today', function(result){
-            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
-            $('#result').html(result);
-            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+            $('#loader2').animate({opacity: 0.0}, "slow");
+            $('#result').html(result).animate({opacity: 1.0}, "slow");
         });
     });
     $('#popularAllTime').click(function () {
-        $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
-        $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+        $('#loader2').animate({opacity: 1.0}, "fast");
+        $('#result').animate({opacity: 0.0}, "fast");
         $.get('/allTime', function(result){
-            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
-            $('#result').html(result);
-            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+            $('#loader2').animate({opacity: 0.0}, "slow");
+            $('#result').html(result).animate({opacity: 1.0}, "slow");
         });
     });
 </script>

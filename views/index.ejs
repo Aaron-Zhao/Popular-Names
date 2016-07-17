@@ -2,6 +2,7 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="icon" href="/images/favicon.ico" type="image/vnd.microsoft.ico">
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
   </head>
@@ -44,14 +45,13 @@
     <script>
       $('#search').click(function () {
         if($('#name').val()===null||$('#name').val()===''){
-          $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+          $('#result').animate({opacity: 0.0}, "fast");
         }else{
-          $('#loader2').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
-          $('#result').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
+          $('#loader2').animate({opacity: 1.0}, "fast");
+          $('#result').animate({opacity: 0.0}, "fast");
           $.get('/search/'+$('#name').val(), function(result){
-            $('#loader2').css({opacity: 1.0, visibility: "hidden"}).animate({opacity: 0.0});
-            $('#result').html(result);
-            $('#result').css({opacity: 0.0, visibility: "visible"}).animate({opacity: 1.0});
+            $('#loader2').animate({opacity: 0.0}, "slow");
+            $('#result').html(result).animate({opacity: 1.0}, "slow");
           });
         }
       });
