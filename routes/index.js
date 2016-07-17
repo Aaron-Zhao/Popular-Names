@@ -145,18 +145,18 @@ function getNamesLocal(type, selection, sort, callback) {
 }
 
 function getPopularYearLocal(name, sort, callback) {
-  var namesObjLocal = JSON.parse(JSON.stringify(namesObj));
   var r = [];
-  for(var nameObj of namesObjLocal){
+  for(var nameObj of namesObj){
     if(nameObj.name===name){
+      var n = Object.assign({}, nameObj);
       if(r.length>0){
-        if(r[0].number<nameObj.number){
-          r.unshift(nameObj);
+        if(r[0].number<n.number){
+          r.unshift(n);
         }else{
-          r.push(nameObj);
+          r.push(n);
         }
       }else{
-        r.push(nameObj);
+        r.push(n);
       }
     }
   }
@@ -165,42 +165,42 @@ function getPopularYearLocal(name, sort, callback) {
 }
 
 function getTodayLocal(callback){
-  var namesObjLocal = JSON.parse(JSON.stringify(namesObj));
   var r = [];
-  for(var nameObj of namesObjLocal){
+  for(var nameObj of namesObj){
     if(nameObj.year===2015 && nameObj.number>=10000) {
+      var n = Object.assign({}, nameObj);
       if (r.length > 0) {
-        if (r[0].number < nameObj.number) {
-          r.unshift(nameObj);
+        if (r[0].number < n.number) {
+          r.unshift(n);
         } else {
-          r.push(nameObj);
+          r.push(n);
         }
       } else {
-        r.push(nameObj);
+        r.push(n);
       }
     }
   }
-  for(var n of r) { n.number = formatNum(n.number);}
+  for(var ro of r) { ro.number = formatNum(ro.number);}
   callback(r);
 }
 
 function getAllTimeLocal(callback){
-  var uniqueNamesObjLocal = JSON.parse(JSON.stringify(uniqueNamesObj));
   var r = [];
-  for(name of uniqueNamesObjLocal){
+  for(name of uniqueNamesObj){
     if(name.number>=1000000){
+      var n = Object.assign({}, name);
       if (r.length > 0) {
-        if (r[0].number < name.number) {
-          r.unshift(name);
+        if (r[0].number < n.number) {
+          r.unshift(n);
         } else {
-          r.push(name);
+          r.push(n);
         }
       } else {
-        r.push(name);
+        r.push(n);
       }
     }
   }
-  for(var n of r) { n.number = formatNum(n.number);}
+  for(var ro of r) { ro.number = formatNum(ro.number);}
   callback(r);
 }
 
