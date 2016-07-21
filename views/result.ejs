@@ -4,6 +4,7 @@
     <ul class="list-group">
         <li class="list-group-item"><%=totalNamed[0].number %> people were named <%=totalNamed[0].name %> from year 1880 - 2015</li>
         <li class="list-group-item">This name was popular in <%=popularYear[0].year %> with <%=popularYear[0].number %> people named <%=totalNamed[0].name %></li>
+        <li class="list-group-item"><a id="tweet">Tweet</a> your result!</li>
         <li class="list-group-item">See <a id="popularToday">popular names of today</a></li>
         <li class="list-group-item">See <a id="popularAllTime">popular name of all time</a></li>
     </ul>
@@ -13,6 +14,9 @@
 </div>
 
 <script>
+    $('#tweet').on('click', function() {
+        window.open('https://twitter.com/intent/tweet?text=<%=totalNamed[0].number %> people were named <%=totalNamed[0].name %> from year 1880 - 2015. See <a href="http://popularnames.herokuapp.com/">how popular is your name!</a>');
+    });
     $('#popularToday').click(function () {
         $('#loader2').animate({opacity: 1.0}, "fast");
         $('#result').animate({opacity: 0.0}, "fast");
