@@ -4,9 +4,9 @@ Want to see how popular your name is? Check out [here](http://popularnames.herok
 
 #Data Source
 
-Data used for names in this application is from [data.gov](https://www.data.gov/), which contains all baby names collected by SSA from 1880-2015.
+Data used for names in this application are from [data.gov](https://www.data.gov/), which contains all baby names collected by SSA from 1880-2015.
 
-The application can parse data files automatically into MongoDB and JSON files. Query results can be returned by either of them.
+The application can parse data files automatically into MongoDB and JSON files. Query results can be returned from either of them.
 
 #Configuration
 
