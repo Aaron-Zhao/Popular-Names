@@ -15,7 +15,7 @@
 
 <script>
     $('#tweet').on('click', function() {
-        window.open('https://twitter.com/intent/tweet?text=<%=totalNamed[0].number %> people were named <%=totalNamed[0].name %> from year 1880 - 2015. See <a href="http://popularnames.herokuapp.com/">how popular is your name!</a>');
+        window.open('https://twitter.com/intent/tweet?text=<%=totalNamed[0].number %> people were named <%=totalNamed[0].name %> from year 1880 - 2015. See how popular is your name! http://popularnames.herokuapp.com/');
     });
     $('#popularToday').click(function () {
         $('#loader2').animate({opacity: 1.0}, "fast");

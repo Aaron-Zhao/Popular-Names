@@ -185,7 +185,6 @@ function getAllTimeLocal(callback){
 
 /* GET home page. */
 router.get('/', function(req, res, next) {
-  // namesDBDump();
   res.render('index', { title: 'Popular Names' });
 });
 
@@ -223,3 +222,4 @@ router.get('/allTime', function(req, res, next) {
 });
 
 module.exports = router;
+// module.exports.dump = namesDBDump();
