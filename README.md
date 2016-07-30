@@ -18,8 +18,8 @@ npm install
 - create directory '/jnames' that will be used to store JSON source files.
 - create db 'popularName', collections 'names' and 'unique.names'.
 - perform data dump run 
-```
-bashnode -e "require('./dump.js').dump()"
+```bash
+node -e "require('./dump.js').dump()"
 ```
 - start web service 
 ```bash
