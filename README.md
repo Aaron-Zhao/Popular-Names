@@ -10,12 +10,20 @@ The application can parse data files automatically into MongoDB and JSON files. 
 
 #Getting Started
 
-- run 'npm install' 
+-run
+```bash
+npm install
+```
 - create directory '/names' and put all source data files in it.
 - create directory '/jnames' that will be used to store JSON source files.
 - create db 'popularName', collections 'names' and 'unique.names'.
-- run 'node -e "require('./dump.js').dump()"'
-- run 'npm start'
+- run 
+```bashnode -e "require('./dump.js').dump()"
+```
+- run
+```bash
+npm start
+```
 
 
 #License
