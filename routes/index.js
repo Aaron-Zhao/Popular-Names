@@ -143,4 +143,3 @@ router.get('/allTime', function(req, res, next) {
 });
 
 module.exports = router;
-// module.exports.dump = namesDBDump();
